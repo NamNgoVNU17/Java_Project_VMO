@@ -1,20 +1,28 @@
 package com.justin.fresherMNG.dto;
 
 
-import java.util.Date;
-import java.util.List;
+import com.justin.fresherMNG.entity.Project;
+
+import java.time.LocalDate;
+import java.util.Set;
 
 public class ProjectDTO {
     private Integer id;
-    private String code;
     private String name;
+    private String programmingLanguage;
+    private Project.ProjectStatus status;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Integer centerId;
-    private String manager;
-    private Date startDate;
-    private Date endDate;
-    private String language;
-    private String status;
-    private List<Integer> fresherIds;
+    private Set<Integer> fresherIds;
+
+    public Project.ProjectStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(Project.ProjectStatus status) {
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;
@@ -22,14 +30,6 @@ public class ProjectDTO {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -40,6 +40,30 @@ public class ProjectDTO {
         this.name = name;
     }
 
+    public String getProgrammingLanguage() {
+        return programmingLanguage;
+    }
+
+    public void setProgrammingLanguage(String programmingLanguage) {
+        this.programmingLanguage = programmingLanguage;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
     public Integer getCenterId() {
         return centerId;
     }
@@ -48,51 +72,11 @@ public class ProjectDTO {
         this.centerId = centerId;
     }
 
-    public String getManager() {
-        return manager;
-    }
-
-    public void setManager(String manager) {
-        this.manager = manager;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public List<Integer> getFresherIds() {
+    public Set<Integer> getFresherIds() {
         return fresherIds;
     }
 
-    public void setFresherIds(List<Integer> fresherIds) {
+    public void setFresherIds(Set<Integer> fresherIds) {
         this.fresherIds = fresherIds;
     }
 }

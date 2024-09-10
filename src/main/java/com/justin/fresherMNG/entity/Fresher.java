@@ -3,7 +3,8 @@ package com.justin.fresherMNG.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "fresher")
@@ -21,27 +22,25 @@ public class Fresher {
     @Column(name = "programming_language", nullable = false)
     private String programmingLanguage;
 
-    @Column(name = "score1")
+    @Column(name = "score1",nullable = false)
     private Float score1;
 
-    @Column(name = "score2")
+    @Column(name = "score2",nullable = false)
     private Float score2;
 
-    @Column(name = "score3")
+    @Column(name = "score3",nullable = false)
     private Float score3;
-
-    @Column(name = "average_score")
-    private Float averageScore;
+    @Column(name = "AverageScore")
+    private Float avgScore;
 
     @ManyToOne
-    @JoinColumn(name = "center_id")
+    @JoinColumn(name = "center_id",nullable = true)
     private Center center;
 
     @ManyToMany(mappedBy = "freshers")
-    private List<Project> projects;
-
-
-    public Fresher() {}
+    private Set<Project> projects = new HashSet<>();
+    public Fresher() {
+    }
 
     public Integer getId() {
         return id;
@@ -99,12 +98,12 @@ public class Fresher {
         this.score3 = score3;
     }
 
-    public Float getAverageScore() {
-        return averageScore;
+    public Float getAvgScore() {
+        return avgScore;
     }
 
-    public void setAverageScore(Float averageScore) {
-        this.averageScore = averageScore;
+    public void setAvgScore(Float avgScore) {
+        this.avgScore = avgScore;
     }
 
     public Center getCenter() {
@@ -115,17 +114,11 @@ public class Fresher {
         this.center = center;
     }
 
-    public List<Project> getProjects() {
+    public Set<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(List<Project> projects) {
+    public void setProjects(Set<Project> projects) {
         this.projects = projects;
-    }
-
-    @PrePersist
-    @PreUpdate
-    private void calculateAverageScore() {
-        this.averageScore = (this.score1 + this.score2 + this.score3)/3;
     }
 }

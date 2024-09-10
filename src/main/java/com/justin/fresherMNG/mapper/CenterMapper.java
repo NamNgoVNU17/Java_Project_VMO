@@ -3,27 +3,23 @@ package com.justin.fresherMNG.mapper;
 import com.justin.fresherMNG.dto.CenterDTO;
 import com.justin.fresherMNG.entity.Center;
 
-import java.util.stream.Collectors;
-
 public class CenterMapper {
-    public static CenterDTO toDTO(Center center) {
-        CenterDTO dto = new CenterDTO();
-        dto.setId(center.getId());
-        dto.setName(center.getName());
-        dto.setFresherIds(center.getFreshers().stream()
-                .map(fresher -> fresher.getId())
-                .collect(Collectors.toList()));
-        dto.setProjectIds(center.getProjects().stream()
-                .map(project -> project.getId())
-                .collect(Collectors.toList()));
-        return dto;
+    public static CenterDTO toDTO (Center center) {
+        CenterDTO centerDTO = new CenterDTO();
+        centerDTO.setId(center.getId());
+        centerDTO.setName(center.getName());
+        centerDTO.setLocation(center.getLocation());
+
+        return centerDTO;
     }
 
-    public static Center toEntity(CenterDTO dto) {
+
+    public static Center toCenter (CenterDTO centerDTO) {
         Center center = new Center();
-        center.setId(dto.getId());
-        center.setName(dto.getName());
-        // Relationships are typically managed separately
+        center.setId(centerDTO.getId());
+        center.setName(centerDTO.getName());
+        center.setLocation(centerDTO.getLocation());
+
         return center;
     }
 }

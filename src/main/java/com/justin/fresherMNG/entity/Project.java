@@ -2,8 +2,9 @@ package com.justin.fresherMNG.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "project")
@@ -12,64 +13,44 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
-    private String code;
+    private String programmingLanguage;
 
+    @Enumerated(EnumType.STRING)
+    private ProjectStatus status;
+
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    // Quan hệ với Center
     @ManyToOne
     @JoinColumn(name = "center_id")
     private Center center;
 
-    @Column(nullable = false)
-    private String manager;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "start_date", nullable = false)
-    private Date startDate;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "end_date")
-    private Date endDate;
-
-    @Column(nullable = false)
-    private String language;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
+    // Quan hệ với Fresher
     @ManyToMany
     @JoinTable(
-            name = "project_fresher",
+            name = "project_freshers",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "fresher_id")
     )
-    private List<Fresher> freshers;
+    private Set<Fresher> freshers = new HashSet<>();
 
-    public Integer getId() {
-        return id;
+    public enum ProjectStatus {
+        NOT_STARTED,
+        ONGOING,
+        CANCELED,
+        CLOSED
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Project(){}
+    public Set<Fresher> getFreshers() {
+        return freshers;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
+    public void setFreshers(Set<Fresher> freshers) {
+        this.freshers = freshers;
     }
 
     public Center getCenter() {
@@ -80,62 +61,52 @@ public class Project {
         this.center = center;
     }
 
-    public String getManager() {
-        return manager;
-    }
-
-    public void setManager(String manager) {
-        this.manager = manager;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
-    public String getLanguage() {
-        return language;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public Status getStatus() {
+    public ProjectStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(ProjectStatus status) {
         this.status = status;
     }
 
-    public List<Fresher> getFreshers() {
-        return freshers;
+    public String getProgrammingLanguage() {
+        return programmingLanguage;
     }
 
-    public void setFreshers(List<Fresher> freshers) {
-        this.freshers = freshers;
+    public void setProgrammingLanguage(String programmingLanguage) {
+        this.programmingLanguage = programmingLanguage;
     }
 
-    public enum Status {
-        NOT_START,
-        ONGOING,
-        CANCELED,
-        CLOSED
+    public String getName() {
+        return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
 }
