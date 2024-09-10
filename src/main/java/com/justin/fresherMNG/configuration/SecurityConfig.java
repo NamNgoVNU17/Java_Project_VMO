@@ -24,7 +24,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
-                        .requestMatchers("api/freshers/**").hasAuthority("ADMIN")
+                        .requestMatchers("api/freshers/**","api/centers/**","api/dashboard/**","api/projects/**").hasAuthority("ADMIN")
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**","/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
